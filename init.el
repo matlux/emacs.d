@@ -1,0 +1,32 @@
+(require 'package)
+
+(add-to-list 'package-archives
+
+             '("marmalade" . "http://marmalade-repo.org/packages/") t)
+
+(package-initialize)
+
+   ;;; A quick & ugly PATH solution to Emacs on Mac OSX
+   (if (string-equal "darwin" (symbol-name system-type))
+      (setenv "PATH" (concat "/opt/local/bin:/opt/local/sbin:/Users/mathieu/bin:" (getenv "PATH"))))
+
+ ;;(set-frame-parameter (selected-frame) 'alpha '(<active> [<inactive>]))
+ (set-frame-parameter (selected-frame) 'alpha '(85 50))
+ (add-to-list 'default-frame-alist '(alpha 85 50))
+
+ (eval-when-compile (require 'cl))
+ (defun toggle-transparency ()
+   (interactive)
+   if (/=
+       (cadr (frame-parameter nil 'alpha))
+       100)
+   (set-frame-parameter nil 'alpha '(100 100))
+   )
+
+(set-background-color "black")
+(set-foreground-color "white")
+
+(setenv "PATH" (concat (getenv "PATH") ":/Users/mathieu/bin"))
+(setq exec-path (append exec-path '("/Users/mathieu/bin")))
+
+;(global-set-key "")

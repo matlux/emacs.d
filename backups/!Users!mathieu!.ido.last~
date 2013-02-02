@@ -1,0 +1,154 @@
+;;; -*- coding: utf-8 -*-
+
+;; ----- ido-last-directory-list -----
+(
+ ("/Users/mathieu/datashare/mgauthron/clojure/training/ldnclj-titanic/src/" . "ldnclj_titanic/")
+ ("/Users/mathieu/datashare/mgauthron/clojure/training/ldnclj-titanic/" . "src/")
+ ("/Users/mathieu/datashare/mgauthron/clojure/training/hackercup2013/src/" . "hackercup2013/")
+ ("/Users/mathieu/datashare/mgauthron/clojure/training/hackercup2013/" . "src/")
+ ("/Users/mathieu/datashare/mgauthron/clojure/training/sudoku-core-logic/src/" . "sudoku_core_logic/")
+ ("/Users/mathieu/datashare/mgauthron/clojure/training/sudoku-core-logic/" . "src/")
+ ("/Users/mathieu/datashare/mgauthron/clojure/clojure-core-logic-chess/" . "src/")
+ ("/Users/mathieu/datashare/mgauthron/clojure/training/the-reasoned-schemer-clojure/src/" . "reasoned_schemer_clj/")
+ ("/Users/mathieu/datashare/mgauthron/clojure/training/the-reasoned-schemer-clojure/" . "src/")
+ ("/Users/mathieu/datashare/mgauthron/clojure/training/dojo7_oct/" . "clsudoku/")
+ ("/Users/mathieu/datashare/mgauthron/clojure/clojure-core-logic-chess/src/" . "clj_cl_chess/")
+ ("/Users/mathieu/datashare/mgauthron/clojure/training/dojo7_oct/clsudoku/" . "src/")
+ ("/Users/mathieu/datashare/mgauthron/clojure/training/dojo7_oct/clsudoku/src/" . "clsudoku/")
+ ("/Users/mathieu/datashare/" . "mgauthron/")
+ ("/Users/mathieu/datashare/mgauthron/clojure/training/fourclojure/" . "src/")
+ ("/Users/mathieu/datashare/mgauthron/clojure/unbound/src/" . "unbound/")
+ ("/Users/mathieu/datashare/mgauthron/clojure/unbound/" . "src/")
+ ("/Users/mathieu/datashare/mgauthron/clojure/training/unbound-test/src/" . "unbound_test/")
+ ("/Users/mathieu/datashare/mgauthron/clojure/training/unbound-test/" . "src/")
+ ("/Users/mathieu/" . ".emacs.d/")
+ ("/Users/" . "mathieu/")
+ ("/Users/mathieu/datashare/mgauthron/clojure/training/" . "ldnclj-titanic/")
+ ("/Users/mathieu/datashare/mgauthron/clojure/" . "training/")
+ ("/Users/mathieu/datashare/mgauthron/" . "clojure/")
+ ("/Users/mathieu/datashare/mgauthron/clojure/training/fourclojure/src/" . "fourclojure/")
+ ("/Users/mathieu/datashare/mgauthron/clojure/training/fileComparator/src/net/matlux/" . "filecomparator/")
+ ("/Users/mathieu/datashare/mgauthron/clojure/training/fileComparator/src/net/" . "matlux/")
+ ("/Users/mathieu/datashare/mgauthron/clojure/training/fileComparator/src/" . "net/")
+)
+
+;; ----- ido-work-directory-list -----
+(
+ "/Users/mathieu/.emacs.d/"
+ "/Users/mathieu/"
+ "/Users/mathieu/datashare/mgauthron/clojure/training/ldnclj-titanic/src/ldnclj_titanic/"
+ "/Users/mathieu/datashare/mgauthron/clojure/training/fourclojure/src/fourclojure/"
+ "/Users/mathieu/datashare/mgauthron/clojure/training/hackercup2013/src/hackercup2013/"
+ "/Users/mathieu/datashare/mgauthron/clojure/training/sudoku-core-logic/src/sudoku_core_logic/"
+ "/Users/mathieu/datashare/mgauthron/clojure/clojure-core-logic-chess/src/clj_cl_chess/"
+ "/Users/mathieu/datashare/mgauthron/clojure/training/the-reasoned-schemer-clojure/src/reasoned_schemer_clj/"
+ "/Users/mathieu/datashare/mgauthron/clojure/clojure-core-logic-chess/"
+ "/Users/mathieu/datashare/mgauthron/clojure/training/dojo7_oct/clsudoku/"
+ "/Users/mathieu/datashare/mgauthron/clojure/training/fourclojure/"
+ "/Users/mathieu/datashare/mgauthron/clojure/training/dojo7_oct/clsudoku/src/clsudoku/"
+ "/Users/mathieu/datashare/mgauthron/clojure/unbound/src/unbound/"
+ "/Users/mathieu/datashare/mgauthron/clojure/training/unbound-test/src/unbound_test/"
+ "/Users/mathieu/datashare/mgauthron/clojure/training/unbound-test/"
+ "/Users/mathieu/datashare/mgauthron/clojure/training/fileComparator/src/net/matlux/filecomparator/"
+)
+
+;; ----- ido-work-file-list -----
+(
+ "init.el"
+ ".emacs"
+ "core.clj"
+ "find_the_min.clj"
+ "beautiful_strings.clj"
+ "balanced_smileys.clj"
+ "project.clj"
+ "app.clj"
+ "common.clj"
+)
+
+;; ----- ido-dir-file-cache -----
+(
+ ("/Users/mathieu/datashare/mgauthron/clojure/training/the-reasoned-schemer-clojure/src/reasoned_schemer_clj/" (20744 23756) "core.clj~" "core.clj" "../" "./")
+
+ ("/Users/mathieu/.emacs.d/" (20734 56326) "places" "init.el" "eshell/" "emacs-live" "elpa/" "backups/" "auto-save-list/" ".smex-items" "../" "./")
+
+ ("/Users/mathieu/" (20744 13715) "VirtualBox VMs/" "tmp/" "repl-port" "Public/" "Pictures/" "old.gemrc" "Music/" "Movies/" "local/" "Library/" "KEYS" "JD-GUI" "gems/" "Dropbox/" "Downloads/" "Documents/" "Desktop/" "datashare/" "Calibre Library/" "bin/" "beforeHomebrew.txt" ".Xauthority" ".vimrc" ".viminfo.bak" ".viminfo" ".vim.rc" ".vim.bak/" ".vim/" ".Trash/" ".test1.clj_history" ".subversion/" ".ssh/" ".serverauth.65900" ".scala_history" ".rtview" ".rnd" ".repl_history" ".recentf" ".profile" ".overtone/" ".m2/" ".lesshst" ".lein/" ".jline-reply.history" ".jline-clojure.lang.Repl.history" ".java_history" ".irb_history" ".ido.last" ".gitk" ".gitconfig" ".ghc/" ".gemrc.old" ".gem/" ".fontconfig/" ".exrc" ".emacs.d/" ".emacs" ".DS_Store" ".dropbox/" ".cups/" ".compile_history" ".clj_completions" ".chainsaw/" ".CFUserTextEncoding" ".bashrc" ".bash_history" "../" "./")
+
+ ("/Users/mathieu/datashare/mgauthron/clojure/training/ldnclj-titanic/src/ldnclj_titanic/" (20744 16027) "core.clj" ".#core.clj" "#core.clj#" "../" "./")
+
+ ("/Users/mathieu/datashare/mgauthron/clojure/training/ldnclj-titanic/" (20744 13741) "test/" "target/" "src/" "resource/" "README.md" "project.clj" "doc/" ".gitignore" ".git/" "../" "./")
+
+ ("/Users/mathieu/datashare/mgauthron/clojure/training/ldnclj-titanic/resource/" (20744 11934) "train.csv" "test.csv" "../" "./")
+
+ ("/Users/mathieu/datashare/mgauthron/clojure/training/" (20744 11932) "unbound-test/" "tmp/" "the-reasoned-schemer-clojure/" "testproject/" "sudoku-elisp/" "sudoku-core-logic/" "slacker/" "pragmaticProgClojure/" "noirexample2/" "noirexample/" "ldnclj-titanic/" "hackercup2013/" "graphics-fun-with-quil/" "fourclojure/" "fileComparator_backup/" "fileComparator/" "example1/" "emacs-live/" "emacs/" "dojo7_oct/" "dojo6_augustb/" "dojo5_august/" "dojo4_june2012/" "dojo3/" "dojo2012-09-25/" "dojo2/" "dojo-forward-jan2013/" "dojo/" "CompojureTest/" "compojure-example/" "cloherence/" "ciao/" "april-cloj-doj/" ".DS_Store" "../" "./")
+
+ ("/Users/mathieu/datashare/mgauthron/clojure/training/ldnclj-titanic/src/" (20744 11934) "ldnclj_titanic/" "../" "./")
+
+ ("/Users/mathieu/datashare/mgauthron/clojure/training/hackercup2013/" (20741 38323) "test.txt" "test/" "target/" "src/" "result.txt" "README.md" "project.clj" "doc/" ".gitignore" ".git/" "../" "./")
+
+ ("/Users/mathieu/datashare/mgauthron/clojure/training/hackercup2013/src/hackercup2013/" (20741 38409) "find_the_min.clj" "core.clj" "beautiful_strings.clj" "balanced_smileys.clj" ".#beautiful_strings.clj" "../" "./")
+
+ ("/Users/mathieu/datashare/mgauthron/clojure/training/hackercup2013/src/" (20741 31496) "hackercup2013/" "../" "./")
+
+ ("/Users/mathieu/datashare/mgauthron/clojure/clojure-core-logic-chess/src/clj_cl_chess/" (20741 12706) "core.clj" ".#core.clj" "#core.clj#" "../" "./")
+
+ ("/Users/mathieu/datashare/mgauthron/clojure/training/sudoku-core-logic/src/sudoku_core_logic/" (20739 47409) "core.clj" "../" "./")
+
+ ("/Users/mathieu/datashare/mgauthron/clojure/training/sudoku-core-logic/src/" (20739 47409) "sudoku_core_logic/" "../" "./")
+
+ ("/Users/mathieu/datashare/mgauthron/clojure/training/sudoku-core-logic/" (20739 47423) "test/" "target/" "src/" "README.md" "project.clj" "doc/" ".gitignore" ".git/" "../" "./")
+
+ ("/Users/mathieu/datashare/mgauthron/clojure/training/fourclojure/" (20734 56326) "test/" "target/" "src/" "README.md" "project.clj~" "project.clj" "doc/" ".gitignore" "#project.clj#" "../" "./")
+
+ ("/Users/mathieu/datashare/" (20728 29813) "tmp/" "sources/" "share/" "mgauthron/" "lib/" "lauramathieu-copy/" "install/" "E-Books/" "cassandra-data/" "applications/" ".DS_Store" "../" "./")
+
+ ("/Users/mathieu/datashare/mgauthron/" (20732 17510) "VBAccess/" "Utils/" "uml/" "studio/" "solarisx86/" "scala/" "ruby/" "python/" "personalNotes/" "perl/" "openvpn/" "main/" "java/" "haskell/" "GS/" "FS/" "Federator/" "etc/" "dotnet/" "dev/" "clojure/" "clients/" "3rdParty/" ".DS_Store" "../" "./")
+
+ ("/Users/mathieu/datashare/mgauthron/clojure/training/dojo7_oct/clsudoku/src/clsudoku/" (20733 50266) "core.clj" "../" "./")
+
+ ("/Users/mathieu/datashare/mgauthron/clojure/training/the-reasoned-schemer-clojure/src/" (20736 63916) "reasoned_schemer_clj/" "net/" "../" "./")
+
+ ("/Users/mathieu/datashare/mgauthron/clojure/training/the-reasoned-schemer-clojure/" (20737 33081) "test/" "target/" "src/" "README.md" "project.clj~" "project.clj" "doc/" ".git/" "../" "./")
+
+ ("/Users/mathieu/datashare/mgauthron/clojure/clojure-core-logic-chess/" (20735 8744) "test/" "target/" "src/" "README.md" "project.clj" "doc/" ".git/" "../" "./")
+
+ ("/Users/mathieu/datashare/mgauthron/clojure/training/dojo7_oct/" (20624 11926) "clsudoku/" "../" "./")
+
+ ("/Users/mathieu/datashare/mgauthron/clojure/training/fourclojure/src/fourclojure/" (20731 56421) "core.clj" "../" "./")
+
+ ("/Users/mathieu/datashare/mgauthron/clojure/" (20734 21690) "unbound/" "training/" "logging/" "clojure-src/" "clojure-core-logic-chess/" ".DS_Store" "../" "./")
+
+ ("/Users/mathieu/datashare/mgauthron/clojure/clojure-core-logic-chess/src/" (20734 21598) "clj_cl_chess/" "../" "./")
+
+ ("/Users/mathieu/datashare/mgauthron/clojure/training/dojo7_oct/clsudoku/" (20731 56470) "test/" "target/" "src/" "README.md" "project.clj" "lib/" "classes/" ".lein-deps-sum" ".gitignore" "../" "./")
+
+ ("/Users/mathieu/datashare/mgauthron/clojure/training/dojo7_oct/clsudoku/src/" (20624 11926) "clsudoku/" "../" "./")
+
+ ("/Users/mathieu/datashare/mgauthron/clojure/unbound/src/unbound/" (20688 50288) "core.clj" "../" "./")
+
+ ("/Users/mathieu/datashare/mgauthron/clojure/unbound/src/" (20688 50288) "unbound/" "../" "./")
+
+ ("/Users/mathieu/datashare/mgauthron/clojure/unbound/" (20688 50288) "test/" "src/" "README.md" "project.clj" "doc/" ".gitignore" ".git/" "../" "./")
+
+ ("/Users/mathieu/datashare/mgauthron/clojure/training/unbound-test/src/unbound_test/" (20688 50713) "core.clj" "../" "./")
+
+ ("/Users/mathieu/datashare/mgauthron/clojure/training/unbound-test/src/" (20688 50376) "unbound_test/" "../" "./")
+
+ ("/Users/mathieu/datashare/mgauthron/clojure/training/unbound-test/" (20688 50487) "test/" "target/" "src/" "README.md" "project.clj" "doc/" ".gitignore" "../" "./")
+
+ ("/Users/" (20208 65259) "Shared/" "rescue/" "mathieu/" ".localized" "../" "./")
+
+ ("/Users/mathieu/datashare/mgauthron/clojure/training/fileComparator/src/net/matlux/filecomparator/" (20682 60059) "ssh_adapter.clj" "local_adapter.clj" "core.clj" "common.clj" "app.clj" "../" "./")
+
+ ("/Users/mathieu/datashare/mgauthron/clojure/training/fourclojure/src/" (20682 60044) "fourclojure/" "../" "./")
+
+ ("/Users/mathieu/datashare/mgauthron/clojure/training/fileComparator/src/net/matlux/" (20251 23828) "rpc/" "filecomparator/" "../" "./")
+
+ ("/Users/mathieu/datashare/mgauthron/clojure/training/fileComparator/src/net/" (20248 13413) "matlux/" "../" "./")
+
+ ("/Users/mathieu/datashare/mgauthron/clojure/training/fileComparator/src/" (20251 12719) "private_tests.clj" "net/" "../" "./")
+
+ ("/Users/mathieu/datashare/mgauthron/clojure/training/fileComparator/" (20680 64662) "treestructure/" "tmp/" "test/" "target/" "src/" "README.md" "project.clj" "lib/" "fileComp.sh" "classes/" "cl-fileComp.zip" "cl-fileComp.tar.gz" "cl-file-comparator-1.0.0-SNAPSHOT.jar" "cl-file-comparator-1.0.0-SNAPSHOT-standalone.jar" ".settings/" ".project" ".lein-failures" ".lein-deps-sum" ".gitignore" ".git/" ".classpath" "../" "./")
+)
+
+;; ----- ido-unc-hosts-cache -----
+t

@@ -1,0 +1,1426 @@
+(ns fourclojure.core)
+
+(defn foo
+  "I don't do a whole lot."
+  [x]
+  (println x "Hello, World!"))
+
+(foo "bar")
+
+(conj '(3 4) 2 1)
+(= [:a :b :c] (list :a :b :c) (vec '(:a :b :c)) (vector :a :b :c))
+
+(conj [1 2 3] 4)
+
+
+
+(conj [1 2] 3 4)
+
+(set '(:a :a :b :c :c :c :c :d :d))
+
+#{:a :b :c :d}
+
+(clojure.set/union #{:a :b :c} #{:b :c :d})
+
+(conj #{1 4 3} 2)
+
+( hash-map :a 10, :b 20, :c 30)
+(
+ (fn add-five [x] (+ x 5)))
+
+
+((fn add-five [x] (+ x 5)) 3
+ )
+
+
+( #(str "Hello, " % "!") "Dave" )
+
+(next [1 2 3 4])
+(next '(1))
+
+;; problem #19
+((fn [coll]
+   (loop [[s & sx] coll]
+     (if (= sx nil)
+       s
+       (recur sx))))
+ [1 2 3 4 5])
+
+((fn [coll]   
+   (if (next coll)
+     (recur (next coll))
+     (first coll)))
+ [1 2 3 4 5])
+
+(#(if (next %)
+    (recur (next %))
+    (first %)) [1 2 3 4 5])
+
+;; #20
+
+((f [coll]
+    ) (list 1 2 3 4 5))
+
+((fn [coll]
+   (loop [[s1 s2 & sx] coll]
+     (if (= s2 nil)
+       nil
+       (if (= sx nil)
+           s1 
+           (recur (cons s2 sx ))))))
+ '(1 2 3 4 5))
+(#(loop [[s1 s2 & sx] %]
+   (if (= s2 nil)
+     nil
+     (if (= sx nil)
+       s1 
+       (recur (cons s2 sx )))))
+ '(1 2 3 4 5))
+
+( (comp first rest reverse)
+  '(1 2 3 4 5))
+
+
+(source reduce)
+
+(#(loop [sx %1
+         c %2]
+    (if (<= c 0)
+      (first sx)
+      (recur (next sx) (dec c)))) '(4 5 6 7 8) 2)
+
+(#(first (drop %2 %1))
+ '(4 5 6 7 8) 2)
+
+(drop 2 '(4 5 6 7))
+
+;; #22
+
+(#(loop [c 0
+         s %]
+    (if (empty? s)
+      c
+      (recur (inc c) (next s))))
+ '(1 2 3 3 1))
+
+(
+ #(reduce (fn [v _] (inc v)) 0 %)
+ '(1 2 3 3 1))
+
+(doc reduce)
+
+(dec 3)
+
+(apply str (re-seq #"[A-Z]+" "bA1B3Ce "))
+
+(re-seq #"[A-Z]+" "bA1B3CDe ")
+(apply str '("a" "b" "c"))
+
+(doc re-seq)
+
+((fn foo [x] (when (> x 0) (conj (foo (dec x)) x))) 5)
+
+(conj nil 1 2)
+
+(last (sort (rest (reverse [2 5 4 1 3 6]))))
+(->> [2 5 4 1 3 6] reverse rest sort last)
+
+(macroexpand '(->> [2 5 4 1 3 6] reverse rest sort last)
+ )
+(source macroexpand)
+
+(macroexpand '(->> [2 5 4 1 3 6] reverse))
+
+;;('(-> [2 5 4 1 3 6] reverse))
+
+
+
+(doc ->>)
+
+(take 3 [2 5 4 1 3 6])
+(+ '(5 2 4))
+(->> [2 5 4 1 3 6] (drop 2) (take 3) (map inc) )
+
+(->> '(5 2 1) (apply +))
+
+(source lazy-seq)
+(macroexpand '(lazy-seq (iterate f (f x))))
+
+(macroexpand '(iterate #(+ 3 %) 1))
+(take 2 (rest (iterate (fn* [p1__1134#] (+ 3 p1__1134#)) 1)))
+
+(take 5 (iterate #(+ 3 %) 1))
+
+(source iterate)
+
+;; #134
+((fn [k m]
+   (and (nil? (m k))
+        (-> m (contains? k)))
+   ) :c {:a nil :b 2})
+(
+ #(and (nil? (%2 %1))
+       (contains? %2 %1))
+ :c {:a nil :b 2})
+(
+ #(%2 %1 1)
+ :b {:a nil :b 2})
+
+(not 1)
+
+(#(nil? (%1 %2)) :a {:a nil :b 2})
+
+(-> {:a nil :b 2} (contains? :c) )
+
+
+
+(contains? #{:a :b} :a)
+(set '(:a :b))
+
+
+(doc contains?)
+(coll? '(:a :b))
+
+(nil? (:c  {:a nil :b 2}) )
+(:c {:a nil :b 2})
+
+;;
+(take 100 (for [x (range 4) y (range 4) :when (< y x)] [x y]))
+(range 4)
+
+(doc rem)
+(source for)
+(for [x (range 40)
+            :when (= 1 (rem x 4))]
+  x)
+
+(range 1 41 4)
+
+(doc clojure.set/superset? )
+({:bar 0, :baz 1} :foo 2)
+(doc interleave)
+;; #156
+
+(#(interleave  %2 (repeat %1)) 0 [:a :b :c])
+(
+ (fn [e v] 
+          (->> (loop [v2 (->> (interleave  v (repeat e)) vec)
+                  result []]
+             (if (empty? v2)
+               result
+               (recur (drop 2 v2) (conj result (vec (take 2 v2)) ))
+               )) (into {})))            
+ 0 [:a :b :c])
+
+(
+ (fn [e v] 
+          (zipmap v (repeat e)))
+ 0 [:a :b :c])
+(
+ #(zipmap %2 (repeat %))
+ 0 [:a :b :c])
+
+(
+ #(into {} (map vector %2 (repeat %1)))
+ 0 [:a :b :c])
+
+
+
+(
+ #(apply assoc {} (interleave  %2 (repeat %1))) 
+ 0 [:a :b :c])
+
+
+(apply assoc {} '(:a 0 :b 0))
+(doc map)
+
+(repeat 2)
+(vec '(:a 2))
+
+(map vector %2 (repeat %))
+
+(into {} ['(:a 2)])
+
+(hash-map (vec '(:a 0 :b 0 :c 0)))
+(into [] {1 2, 3 4})
+
+;157
+
+(
+#(map vector % (range))
+ [:a :b :c])
+
+(take 3 (iterate inc 0))
+;;166
+
+(
+ #(let [comp (%1 %2 %3)
+        eqsign (= %1 =)
+        gtsign (= %1 >)
+        ltsign (not (or eqsign gtsign))
+        eq (or
+            (and comp eqsign)
+            (and (not comp) (or (and (not gtsign) ltsign) (and gtsign (not ltsign))) ))
+        gt (or
+            (and comp gtsign)
+            (and comp (not ltsign))
+            (and (not comp) ltsign)
+            (and (not comp) (not gtsign))
+            )
+        ]
+    (println comp eqsign gtsign ltsign "eq=" eq "gt=" gt)
+    (if eq
+      :eq
+      (if gt
+        :gt
+        :lt))
+    )
+;(fn [x y] (< (count x) (count y))) "pear" "plum")
+ < 5 1 )
+
+(
+ #(if (%1 %2 %3)
+    :lt
+    (if (%1 %3 %2)
+      :gt
+      :eq))
+ 
+                                        ;(fn [x y] (< (count x) (count y))) "pear" "plum")
+ < 5 1 )
+
+(< 5 1)
+
+(= < <)
+(doc xor)
+(seq-zip (fn [x y] (< (count x) (count y))))
+
+ ;;70
+
+
+
+( (fn [msg] (->> (clojure.string/split msg #"[\s+|.|!]") (map #(vector (clojure.string/lower-case %) %)) sort (map #(get % 1))))
+ "Have a nice day.")
+
+( #(->> (clojure.string/split % #"[\s+|.|!]") (sort-by clojure.string/lower-case))
+ "Have a nice day.")
+
+(get 1 [2 3])
+(doc sort)
+
+(sort [2 4 1 6 7 4])
+;;67
+
+( (fn [n]
+    (let [divs (fn [x] (->> (range x) (map (partial + 2)) (filter #(= (rem x %) 0))))
+
+          prim? #(= (count (divs %)) 1)
+          prim-seq (->>  (range) (map (partial + 2)) (filter prim?))]
+      (take n prim-seq))
+    )
+  100)
+
+;; working
+(def prim-seq3 (fn [n]
+                 (let [divs (fn ([x] (filter #(do ;; (println "n")
+                                                 (= (rem x %) 0)) (range 2 x))))
+                       prim? (fn ([x] (not (some #(do ;;(println "n")
+                                                     (= (rem x %) 0)) (range 2 x)))))
+          prim2? #(= (count (divs %)) 1)
+          prim-seq (filter prim? (iterate inc 2))]
+      (take n prim-seq)
+      ;;(prim? n)
+      )
+    )
+  )
+
+()
+
+(def prim-seq2 (fn [n]
+    (let [prim? (fn ([x] (not (some #(= (rem x %) 0) (range 2 x)))))
+          prim-seq (filter prim? (iterate inc 2))]
+      (take n prim-seq)
+      ;;(prim? n)
+      )
+    )
+ )
+
+(def prim-seq1 (fn [n]
+                 (let [prim? (fn ([x] (not (some #(= (rem x %) 0) (range 2 x)))))]
+                   (take n (filter prim? (iterate inc 2)))
+                   )
+                 ))
+
+(time (do (doall (prim-seq1
+               2000) ) (println "end")))
+
+(println "n")
+
+(filter (constantly true) (range 1 4))
+
+(take 5 (filter odd? (map (partial + 2) (range) )))
+
+
+(some #(zero? (mod 3 %)) (range 2 3))
+
+(range 2 3)
+
+(zero? (mod 3 3))
+(filter #(do (println  "n")  (= % 3)) '(1 2 3 4 5))
+(doc do
+     )
+
+(source some)
+((fn [x] (->> (range 2 x) (filter #(zero? (rem x %))))) 5)
+
+;;63
+
+(
+ (fn [f s]
+   (loop [m {}
+          s2 s]
+     (if (empty? s2)
+       m
+       (do
+         ;;(println "m=" m " s2=" s2)
+         (let [e (first s2)
+               key (f e)
+               map-el (m key)
+               ;;test (println "map-el=" map-el)
+               grp-el (if (nil? map-el) [] map-el)]
+           (recur (assoc m  (f e) (conj grp-el e)) (next s2)))))))
+ #(> % 5) [1 3 6 8])
+
+(
+ (fn [f s]
+   (loop [m {}
+          s2 s]
+     (if (empty? s2)
+       m
+       (let [e (first s2)
+             map-el (m (f e))
+             grp-el (if (nil? map-el) [] map-el)]
+         (recur (assoc m  (f e) (conj grp-el e)) (next s2))))))
+ #(> % 5) [1 3 6 8])
+
+(
+ (fn [f s]
+   (reduce
+    (fn [m e]
+      (let [map-el (m (f e))
+            grp-el (if (nil? map-el) [] map-el)]
+        (assoc m (f e) (conj grp-el e))))
+    {} s))
+ #(> % 5) [1 3 6 8])
+
+(
+ (fn [f s]
+   (reduce
+    #(assoc %1 (f %2) (conj (get %1 (f %2) []) %2))
+    {} s))
+ #(> % 5) [1 3 6 8])
+
+(source group-by)
+
+(conj [] 3)
+;;32
+
+(
+ (fn [sx]
+   (apply concat (map (partial repeat 2) sx)))
+ [1 2 3])
+(
+ #(interleave % %)
+ [1 2 3])
+
+(apply concat '((1 1) (2 2) (3 3)))
+
+(repeat 2 1)
+
+;; 33
+
+(
+ (fn [sx fac]
+   (apply concat (map (partial repeat fac) sx)))
+ [1 2 3] 4)
+
+(
+ (fn [sx a]
+   (mapcat (partial repeat a) sx))
+ [1 2 3] 4)
+
+;;28
+
+(
+ (fn flat [sx]
+   (reduce (fn [m e]
+             (if (coll? e)
+               
+               (conj m e)
+               [e]))
+    [] sx))
+ '((1 2) 3 [4 [5 6]]))
+
+(when (seq []) 1)
+
+(source flatten)
+(source sequential?)
+
+(#(filter (complement sequential?) (rest (tree-seq sequential? seq %))) '((1 2) 3 [4 [5 6]]))
+
+(conj [1 2 3] 4)
+
+(coll? [1 2])
+
+(doc fn)
+(assoc {} :a 3)
+
+
+;;26 fibonacci seq
+
+(
+ (fn [n]
+   (let [fib-seq (fn fib ([] (lazy-seq (fib 1 1)))
+                        ([a b] (cons a (lazy-seq (fib b (+ a b)))))
+                   )
+         ]
+     (take n (fib-seq) )
+     ))
+ 20)
+
+(
+ (fn [n]
+   (let [fib (fn fib [a b] (cons a (lazy-seq (fib b (+ a b)))))
+         fib-seq #(lazy-seq (fib 1 1))
+         ]
+     (take n (fib-seq) )
+     ))
+ 20)
+
+
+(
+ (fn [n]
+   (let [fib-seq ((fn fib [a b] (cons a (lazy-seq (fib b (+ a b))))) 1 1)]
+     (take n fib-seq )
+     ))
+ 20)
+
+(
+ 
+ #(take % ((fn fib [a b] (cons a (lazy-seq (fib b (+ a b))))) 1 1) )
+ 
+ 20)
+
+(def r (range 10))
+
+(type r)
+
+;;25
+(
+ filter odd?
+ #{1 2 3 4 5})
+
+;;24
+(
+ reduce +
+        [1 2 3])
+
+;; 23
+
+(
+ (fn rev [sx] (if (empty? sx) [] (cons (last sx) (lazy-seq (rev (drop-last sx))))) )
+ [1 2 3 4 5])
+
+(
+ #(reduce conj '() %)
+ [1 2 3 4 5])
+
+(
+ reduce conj '()
+        [1 2 3 4 5])
+(
+ into '()
+ [1 2 3 4 5])
+
+(conj '(1) 2)
+(conj [1] 2)
+
+;;27
+
+(
+#(= (reverse %) %)
+'(1 2 3 4 5))
+
+(
+ #(= (reverse %) (seq %))
+"aba")
+
+;;29
+
+
+( #(apply str (re-seq #"[A-Z]" %))
+  "HeLlO, WoRlD!")
+
+
+(apply str '(\a \b \c))
+
+(str \a \b \c)
+
+(seq '(1 2 3))
+(reverse "abc")
+(list 1 2)
+(drop-last '(1 2 3 4 5))
+
+(last [1 2 3 4 5])
+
+;;30
+
+(
+ reduce #(if (= (last %1) %2)
+           %1
+           (conj %1 %2)) []
+           "Leeeeeerrroyyy")
+;;31
+
+
+(
+ reduce
+ #(do (if (= (last (last %1)) %2)
+    (conj (vec (drop-last %1)) (conj (last %1) %2))
+    (conj %1 (vector %2))))
+ []
+ [1 1 2 1 1 1 3 3])
+
+(
+partition-by identity
+
+ [1 1 2 1 1 1 3 3])
+
+(drop-last [])
+ (conj (drop-last [[1]]) (conj (last [[1]]) 1))
+
+     ;34
+(
+ (fn [s e] (filter (partial > e) (take 100 (iterate (partial + 1) s))))
+ -2 2)
+
+(
+ (fn [s e](take-while (partial > e) (iterate (partial + 1) s)))
+ -2 2)
+
+(
+ #(take-while (partial > %2) (iterate inc %1))
+ -2 2)
+
+;38 max
+
+(
+ (fn [& sx]
+   (reduce #(if (< %1 %2)
+              %2
+              %1)
+           sx))
+ 1 8 3 4)
+
+;;39
+(
+ (fn [a b] (flatten (map #(list %1 %2) a b)))
+ [1 2 3] [:a :b :c])
+
+;;40
+
+(
+ #(drop-last (mapcat list %2 (repeat %1)))
+ 0 [1 2 3])
+
+(
+ #(drop-last (interleave %2 (repeat %1)))
+ 0 [1 2 3])
+
+(count [1 2 3])
+
+;;41
+
+(
+ (fn [sx n] (loop [in sx
+                  out []]
+             (if (empty? in)
+               out
+               (recur (nthrest in n) (concat out (take (dec n) in)))) ))
+ [:a :b :c :d :e :f] 2)
+
+
+;;42 factorial
+
+(
+ (fn [n] (loop [fac 1
+                e 1]
+           (if (> e n)
+             fac
+             (recur (* fac e) (inc e)))))
+ 6)
+
+(
+ (fn [n] (apply * (range 1 (inc n))))
+ 5)
+
+
+
+;;F23763D2C2010D846E1524F826
+
+;;43
+
+(
+ #(let [listnth (fn [sx n] (loop [in sx
+                   out []]
+              (if (empty? in)
+                out
+                (recur (nthrest in n) (concat out (take (dec n) in)))) ))]
+    (concat (list (listnth %1 %2)) (list (listnth (drop 1 %1) %2)) ))
+ (range 9) 3)
+(
+ #(let [listnth (fn [l cycle] (keep-indexed (fn [i val] (when (zero? (mod i cycle)) val)) l))]
+    (concat (loop [result '()
+                   l2 %1
+                   left %2
+                   ]
+              (if (zero? left)
+                result
+                (recur (concat result (list (listnth l2 %2))) (drop 1 l2) (dec left)))) ))
+ (range 9) 3)
+
+(
+ #(apply map list (partition %2 %))
+ (range 9) 3)
+
+
+(keep-indexed (fn [i val] (when (zero? (mod i 3)) val)) (drop 2 (range 9)))
+(keep-indexed (fn [i _] identity) (range 12))
+
+
+;;44
+
+(
+ #(take (count %2) (drop (+ % (* 10 (count %2))) (cycle %2)))
+ -4 '(:a :b :c))
+
+;;46
+
+((
+  (fn [f]
+    (fn [a b] (f b a)))
+    
+
+  nth) 2 [1 2 3 4 5])
+;;47
+
+(contains? #{1 2 3 4 5} 6)
+(contains? [ 1 1 1 6] 0)
+
+
+;;48
+
+(some #{2 7 6} [5 6 7 8])
+(#{2 7 6} 4)
+
+;;49
+
+(
+(fn [n sx] (list (take n sx) (nthrest sx n)))
+1 [1 2 3 4 5 6])
+
+(
+(juxt take drop)
+1 [1 2 3 4 5 6])
+
+;;50
+
+(
+#(vals (group-by type %))
+ [1 :a 2 :b 3 :c])
+
+(group-by type [1 :a 2 :b 3 :c])
+
+;;51
+
+(let [[a b & c :as d] [1 2 3 4 5]] [a b c d])
+
+;;52
+
+(let [[a b c d e f g] (range)] [c e])
+
+;;53 longest increasing sub-sequence
+
+(
+ (fn [s] (let [up #(let [[a b] %] (< a b))
+              down (complement up)
+              up-seqs (loop [in s
+                             out []]
+                        (let [v (take-while up (drop-while down (map #(vector % %2) in (drop 1 in))))]
+                           (let [up-seq (conj (vec (map first v)) (last (last v)))]
+                             (do (println "in=" in "out=" out "v=" v "up-seq=" up-seq) (if (nil? (first up-seq))
+                                                    out
+                                                    (recur (drop (inc (count v)) in) (conj out up-seq)))))))]
+          (let [m (group-by count up-seqs)
+                max-count (if (empty? (keys m)) -1 (apply max (keys m)))
+                result (m max-count)]
+            (if (nil? result) [] (first result)))
+          ))
+ [7 6 5 4 5 6 6 7 8 9 10])
+
+(apply max '(2 3))
+(drop 2 [])
+(empty? '())
+(get [1 2] 1)
+(second [1 2])
+
+
+
+;;54
+
+
+(
+ (fn part [n s]
+   (when (= (count (take n s)) n)
+     (cons (take n s) (lazy-seq (part n (drop n s))))))
+ 2 (range 9))
+
+(nthrest (range 9) 3)
+(partition 3 (range 9))
+
+;;55
+
+(
+ #(into {}  (map (fn [[a b]] (vector a (count b))) (group-by identity %)))
+ [1 1 2 3 2 1 1])
+
+;; 56
+
+(
+ (fn [s] (map (comp second first) (sort-by first (map second (group-by second (map-indexed #(identity [% %2]) s))))))
+ '([2 4] [1 2] [1 3] [1 3]))
+
+(some #(= [2 4] %) '([2 4] [1 2] [1 3] [1 3]))
+;)
+(instance? Comparable [])
+(source distinct)
+
+
+;;58
+
+((
+  (fn ([f g]
+        (fn ([] (f (g)))
+          ([a] (f (g a)))
+          ([a & args] (f (apply g a args)))))
+    ([f g h]
+        (fn ([] (f (g (h))))
+          ([a] (f (g a)))
+          ([a & args] (f (g (apply h a args))))) )
+    )
+  rest reverse) [1 2 3 4])
+
+((
+  (fn ([f g]
+        (fn ([] (f (g)))
+          ([a] (f (g a)))
+          ([a b] (f (g a b)))
+          ([a b & args] (f (apply g a b args)))))
+    ([f g h]
+        (fn ([] (f (g (h))))
+          ([a] (f (g a)))
+          ([a & args] (f (g (apply h a args))))) )
+  )
+  zero? #(mod % 8) +) 3 5 7 9)
+
+(vector '(apply f sx))
+(vector '(apply g [(apply f sx)]))
+
+;;83
+
+(
+ (fn [& args] (= 2 (count (group-by identity  args))))
+ false false)
+
+
+;;62
+
+(take 5 (
+         (fn it [f n]
+           (cons n (lazy-seq (it f (f n)))))
+         #(* 2 %) 1))
+
+;;61
+
+(
+#(into {}  (map vector % %2))
+ [:a :b :c] [1 2 3])
+
+;;60
+
+(take 5 (
+          (fn reduc 
+           ([f s] (let [val (apply f (take 2 s))]
+                    (do ;;(println "val=" val "s=" (take 10 s))
+                        (cons (first s) (lazy-seq (reduc f val (drop 2 s)))
+                           ))
+                  )
+           )
+           ([f init coll]
+              (do ;;(println "init=" init "coll=" (take 10 coll))
+                  (if (empty? coll)
+                 (list init)
+                 (let [val (f init (first coll))]
+                   (do ;;(println "val=" val)
+                       (cons init (lazy-seq (reduc f val (next coll)))
+                          ))
+                   )))
+           )
+         )
+           + (range)))
+
+(
+    (fn reduc 
+           ([f s] (let [val (apply f (take 2 s))]
+                    (do ;;(println "val=" val "s=" (take 10 s))
+                        (cons (first s) (lazy-seq (reduc f val (drop 2 s)))
+                           ))
+                  )
+           )
+           ([f init coll]
+              (do ;;(println "init=" init "coll=" (take 10 coll))
+                  (if (empty? coll)
+                 (list init)
+                 (let [val (f init (first coll))]
+                   (do ;;(println "val=" val)
+                       (cons init (lazy-seq (reduc f val (next coll)))
+                          ))
+                   )))
+           )
+         )
+  conj [1] [2 3 4])
+
+;; 59
+
+((
+  (fn [& fx]
+    (fn [& args]
+      (map #(apply % args) fx)))
+  + max min) 2 3 5 1 6 4)
+
+;;65 
+(
+ #(cond (not  (empty? (keys %))) :map
+        (= 999 (first (conj % 999))) :list
+        (= 999 (last (conj % 999))) :vector
+        :else :set
+        )
+ {:a 1, :b 2})
+;;not solved
+
+;; 81 intersection
+
+(
+ #(into #{} (remove nil? (map %2 %)))
+ #{0 1 2 3} #{2 3 4 5})
+
+;;76
+
+(letfn
+     [(foo [x y] #(bar (conj x y) y))
+      (bar [x y] (if (> (last x) 10)
+                   x
+                   #(foo x (+ 2 y))))]
+     (trampoline foo [] 1))
+
+;;90
+(
+ (fn [a b]
+   (into #{} (for [x a y b]
+      [x y]))
+   
+   )
+ #{"ace" "king" "queen"} #{:spade :heart :diamon :clove})
+
+(
+ (fn [a b]
+   (set (for [x a y b]
+      [x y]))
+   
+   )
+ #{"ace" "king" "queen"} #{:spade :heart :diamon :clove})
+
+#{"d" "c" "b" "a"}
+
+;;107
+
+
+((partial clojure.math.numeric-tower/expt 2) 16)
+
+(
+ (#(let [exp (fn [x n]
+               (loop [acc 1
+                      left  n]
+                 (if (zero? left)
+                   acc
+                   (recur (* acc x) (dec left
+                                         )))))]
+     (partial exp %))
+  2)
+ 8)
+
+
+(def f #(let [exp (fn [n x]
+               (loop [acc 1
+                      left  n]
+                 (if (zero? left)
+                   acc
+                   (recur (* acc x) (dec left
+                                         )))))]
+     (partial exp %)))
+(= 256 ((f 2) 16),
+       ((f 8) 2))
+
+;; 143
+
+(
+ (fn [[a b c] [d e f]]
+   (+ (* a d) (* b e) (* c f))
+   )
+ [0 1 0] [1 0 0])
+
+
+;;135
+(
+ (fn [& args]
+
+   (loop [acc (first args)
+          op (nth args 1)
+          b (nth args 2)
+          left (drop 3 args)]
+     (if (nil? op)
+       acc
+       (recur (op acc b) (first left) (nth left 1 nil) (drop 2 left))))
+   )
+ 38 + 48 - 2 / 2)
+
+(get '(1 2 3 4) 1)
+
+;;88
+
+(
+ 
+ #(clojure.set/difference (clojure.set/union %1 %2) (clojure.set/intersection %1 %2))
+ #{1 2 3 4 5 6} #{1 3 5 7})
+
+;;173
+
+(let [[a b] [+ (range 3)]] (apply a b))
+
+;;122
+
+(
+ (fn [s]
+   (let [str2num #(if (= % \0) 0 1)]
+     (reduce #(+ (* 2 %) (str2num %2)) 0 (seq s))))
+ "10101010101")
+
+#(Integer/parseInt % 2)
+
+;;97
+(map
+ (fn [n]
+   (let [pascal (fn [sx] (apply (fn
+                              ([a] [1 1])
+                              ([a b] [1 2 1])
+                              ([a b & args]
+                                 (loop [[a b & rst :as sx] (concat [a b] args)
+                                        out []]
+                                   (if (nil? b)
+                                     (conj (vec (cons 1 out)) 1)
+                                     (recur (next sx) (conj out (+ a b))))))
+                             ) sx))]
+     (loop [tab [1]
+             left (dec n)]
+       (if (zero? left)
+         tab
+         (recur (pascal tab) (dec left))))
+     ))
+ (range 1 6))
+
+(map
+ (fn [n]
+   (let [pascal (fn [sx] (apply (fn
+                              ([a] [1 1])
+                              ([a b] [1 2 1])
+                              ([a b & args]
+                                 (loop [[x y & rst :as sx] (concat [a b] args)
+                                        out []]
+                                   (if (nil? y)
+                                     (conj (vec (cons a out)) (last args))
+                                     (recur (next sx) (conj out (+ x y))))))
+                             ) sx))]
+     (loop [tab [1]
+             left (dec n)]
+       (if (zero? left)
+         tab
+         (recur (pascal tab) (dec left))))
+     ))
+ (range 1 6))
+
+(let [[a & rst] nil] (println nil (conj [] (+ 0 (if (nil? (first nil))
+                                                  0
+                                                  (first nil))))))
+
+(let [pascal (fn [sx] (apply (fn
+                              ([a] [1 1])
+                              ([a b] [1 2 1])
+                              ([a b & args]
+                                 (loop [[a b & rst :as sx] (concat [a b] args)
+                                        out []]
+                                   (if (nil? b)
+                                     (conj (vec (cons 1 out)) 1)
+                                     (recur (next sx) (conj out (+ a b))))))
+                             ) sx))]
+  (pascal [1 4 6 4 1]))
+
+;;147
+
+(def pascal-seq (fn pascal-seq [tab]
+   (let [pascal (fn [sx] (apply (fn
+                              ([a] [1 1])
+                              ([a b] [a (+' a b) b])
+                              ([a b & args]
+                                 (loop [[x y & rst :as sx] (concat [a b] args)
+                                        out []]
+                                   (if (nil? y)
+                                     (conj (vec (cons a out)) (last args))
+                                     (recur (next sx) (conj out (+' x y))))))
+                             ) sx))]
+     (lazy-seq
+      
+      (cons tab (pascal-seq (pascal tab))))
+     )))
+
+(take 5 (pascal-seq [1]))
+(take 5 (pascal-seq [2 4 2]))
+(take 100 (pascal-seq [2 2]))
+
+
+;;126
+
+(class java.lang.Class)
+
+;;95
+
+(use (clojure.zip [zip :as zip]))
+(require '[clojure.zip :as zip])
+
+((fn [tree]
+   (not (some #(not (= 3 (count (filter (complement false?) %)))) (filter (complement nil?) (tree-seq #(and (or (seq? %) (vector? %)) (next %)) rest tree)))))
+ [1 [2 [3 [4 nil nil] nil] nil] nil])
+
+((fn [tree]
+   (tree-seq #(and (or (seq? %) (vector? %)) (next %)) rest tree))
+ [1 [2 [3 [4 false nil] nil] nil] nil])
+
+(seq? [1 [2 [3 [4 false nil] nil] nil] nil])
+
+((fn [tree]
+   (tree-seq #(and (seq? %) (next %)) #(filter false? (rest %)) tree))
+ [1 [2 [3 [4 false nil] nil] nil] nil])
+
+(filter (complement false?) [4 false nil])
+
+(false? false)
+
+(and (seq? false) (next false))
+
+(clojure.zip/seq-zip '(:a (:b nil nil) nil))
+
+
+
+(interleave [1 2 3 4] [ 6 7 8])
+(tree-seq map? #(interleave (keys %) (vals %)) {:a 1 :b {:c 3 :d 4 :e {:f 6 :g 7}}})
+(cons 1 [3 3 1])
+
+(= (type +) clojure.core$_PLUS_)
+(number? 8)
+(doc some)
+
+(first [])
+(+ 2 nil)
+
+(first (conj '(1 2 3 4 5) 999))
+(keys (range (rand-int 20)))
+('(1 2 3 4) )
+(assoc '() 0 2)
+(source trampoline)
+
+(doc cond)
+
+;;96
+(
+(fn [tree]
+  (let [rev-tree-seq (tree-seq #(and (or (seq? %) (vector? %)) (next %)) (comp reverse rest) tree)
+        for-tree-seq (tree-seq #(and (or (seq? %) (vector? %)) (next %)) rest tree)]
+    (not (some identity (map #(not (= % %2)) for-tree-seq rev-tree-seq)))))
+;'(:a (:b nil nil) (:b nil nil))
+[1 [2 nil [3 [4 [5 nil nil] [6 nil nil]] nil]]
+          [2 [3 nil [4 [6 nil nil] [5 nil nil]]] nil]]
+)
+
+
+(
+(fn [tree]
+  (letfn [(flip [[root c1 c2 :as node]]
+            (if (coll? node)
+              (lazy-seq [root (flip c2) (flip c1)])
+              node))
+        ]
+    (= (flip tree) tree)
+    ))
+;'(:a (:b nil nil) (:b nil nil))
+[1 [2 nil [3 [4 [5 nil nil] [6 nil nil]] nil]]
+          [2 [3 nil [4 [6 nil nil] [5 nil nil]]] nil]]
+)
+
+(reverse (next '(:b nil nil)))
+
+(coll? 99)
+(doc some)
+
+;;118
+
+(
+ (fn nmap [f coll] (lazy-seq  (when-let [sx (seq coll)] (cons (f (first sx)) (nmap f (rest sx))))))
+ inc [2 3 4 5 6])
+
+;;74
+
+(
+ (fn [coll] (clojure.string/join "," (filter #(let [sqr (Math/sqrt %)
+                           sqrint (.doubleValue (.intValue sqr))] (= sqr sqrint)) (map #(Integer/parseInt %) (clojure.string/split coll #",")))))
+ "4,5,6,7,8,9") 
+
+(= (.doubleValue 2) 2.0)
+(source map)
+
+()
+;; +44 8705 888444
+;; 0044 131 339 7609
+
+;;100
+
+(
+ (fn [& args] (let [mult-seq (fn [n] (iterate (partial + n) n))]
+            (first (sort (into '() (apply clojure.set/intersection (map #(set (take 500 (mult-seq %))) args) ))))
+            ))
+ 7 5/7 2 3/5)
+
+(doc intersection)
+
+;;78
+
+(letfn [(triple [x] #(sub-two (* 3 x)))
+          (sub-two [x] #(stop?(- x 2)))
+          (stop? [x] (if (> x 50) x #(triple x)))]
+  (
+   (fn trampo
+     ([f] (let [ret (f)]
+            (if (fn? ret) (recur ret)
+                ret)))
+     ([f & args] (let [ret #(apply f args)]
+                          (trampo ret))))
+   triple 2))
+
+(letfn [(my-even? [x] (if (zero? x) true #(my-odd? (dec x))))
+          (my-odd? [x] (if (zero? x) false #(my-even? (dec x))))]
+  (map (partial
+
+        (fn trampo
+     ([f] (let [ret (f)]
+            (if (fn? ret) (recur ret)
+                ret)))
+     ([f & args] (trampo #(apply f args))
+        ))
+                  my-even?) (range 6)))
+(source trampoline)
+(doc fn?)
+
+;;69
+(
+ (fn [f & maps] (let [merge-entry (fn [m e] (let [[k v] e] (if (contains? m k)
+                                                           (assoc m k (f (get m k) v))
+                                                           (assoc m k v))))
+                     merge2 (fn [m1 m2] (reduce merge-entry (or m1 {}) (seq m2)))
+                     merge-mult (fn [] (reduce merge2 maps))] (merge-mult )))
+ - {1 10, 2 20} {1 3, 2 10, 3 15})
+;; to submit
+
+;; 153
+
+(
+ (fn [sets]
+   (empty? (apply clojure.set/intersection sets)))
+ #{#{:a :b :c :d :e}
+         #{:a :b :c :d}
+         #{:a :b :c}
+         #{:a :b}
+         #{:a}})
+
+(
+ (fn [sets]
+   (apply clojure.set/intersection sets))
+ set-of-set)
+
+(
+ (fn [set-of-sets]
+   (letfn [(clean [e] (if (coll? e)
+                                (lazy-seq (set (map clean e)))
+                                e))]
+     (clean set-of-sets)))
+ #{#{'(:x :y :z) '(:x :y) '(:z) '()}
+         #{#{:x :y :z} #{:x :y} #{:z} #{}}
+         #{'[:x :y :z] [:x :y] [:z] [] {}}})
+
+(def set-of-set #{#{'(:x :y :z) '(:x :y) '(:z) '()}
+         #{#{:x :y :z} #{:x :y} #{:z} #{}}
+         #{'[:x :y :z] [:x :y] [:z] [] {}}})
+
+(def set-of-set2  #{#{:a :b :c :d :e}
+         #{:a :b :c :d}
+         #{:a :b :c}
+         #{:a :b}
+         #{:a}})
+
+(def set-of-set3 #{#{[1 2 3] [4 5]}
+         #{[1 2] [3 4 5]}
+         #{[1] [2] 3 4 5}
+         #{1 2 [3 4] [5]}})
+
+(
+#(let [a (reduce + (map count %))
+       b (count (apply clojure.set/union %))]
+   (= a b)
+   )
+set-of-set2)
+
+(map #(vector (count %) %) set-of-set)
+(count (apply clojure.set/union set-of-set))
+
+(clojure.set/intersection #{[]} #{'()})
+
+(apply println sets)
+
+sets
+(set (map identity sets))
+(coll? '[])
+(
+ 
+ #(empty? (apply clojure.set/intersection %))
+ #{#{[1 2 3] [4 5]}
+         #{[1 2] [3 4 5]}
+         #{[1] [2] 3 4 5}
+         #{1 2 [3 4] [5]}})
+(doc union)
+
+;;158
+
+(def cur (fn [a]
+             (fn [b]
+               (fn [c]
+                 (fn [d]
+                   (+ a b c d))))))
+
+((
+  (fn decurry [f]
+    (fn [& args]
+      (if (fn? f)
+        (apply (decurry (f (first args))) (rest args))
+        f)))
+(fn [a]
+             (fn [b]
+               (fn [c]
+                 (fn [d]
+                   (+ a b c d)))))
+  )
+ 1 2 3 4)
+
+((
+  (fn decurry [f]
+    (fn [& args]
+      (let [[a & sx] args] (if (fn? f)
+         (apply (decurry (f a)) sx)
+         f))))
+  cur)
+ 1 2 3 4)
+
+((
+  (fn decurry [f]
+    (fn [& args]
+      (reduce #(% %2) f args)))
+  cur)
+ 1 2 3 4)
+
+((
+  (fn decurry [f]
+    (fn [& args]
+      (loop [[a & sx] args
+             f1 f]
+        (if (nil? sx)
+          (f1 a)
+          (recur sx (f1 a))))))
+  cur)
+       1 2 3 4)
+
+((((cur 1) 2) 3) 4)
+
+
+;;102
+
+(
+ (fn [s]
+   (let [[a & rst] (clojure.string/split s #"-")
+         capitalize (fn [w] (let [[fcar & rst-char-seq] (seq w)] (apply str (cons (clojure.string/capitalize fcar) rst-char-seq))))]
+     (apply str (cons a (map capitalize rst)))))
+ "multi-word-key")
+
+(clojure.string/capitalize \c)
+
+(apply str (seq "abc"))
+(doc clojure.string/split)
+
+((fn [a & args] (println a args)))
+
+(merge {:a 2, :b 3, :c 4} {:a 2} {:b 2} {:c 5})
+(assoc {:a 2 :b 3} :b 5)(assoc {:a 2 :b 3} :b 5)
+(seq {:a 2, :b 3, :c 4})
+(contains? {:a 2, :b 3, :c 4} :d)
+
+
+(first
+[:c 3])
+(contains? {:a 2 :b 3} :c)
+(assoc {:a 2 :b 3} :b 5)
+(get {:a 2 :b 3} :b)
+
+
+
+(doc assoc)
+(cond false 1
+      false 2
+      true 3
+      :else 4
+      )
+(take 3 (iterate * 5))
+(take 4 (iterate + 1))
+(vector 2)
+(doc comp)
+
+
+
+(source iterate )
+
+
+
+

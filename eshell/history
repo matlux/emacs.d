@@ -1,0 +1,55 @@
+cd datashare/mgauthron/clojure/training/
+cd datashare/mgauthron/clojure/training/
+help
+help
+help
+pwd
+cd datashare/mgauthron/clojure/training/whatever/
+cd ..
+rm -rf whatever
+cd testproject/
+echo $PATH
+echo $PATH
+echo $PATH
+cd datashare/mgauthron/clojure/training/testproject/
+pwd
+cd datashare/mgauthron/clojure/training/fileComparator
+cd datashare/mgauthron/clojure/training/fileComparator
+cd ../fourclojure/
+cd datashare/mgauthron/clojure/training/fourclojure/
+type lein
+echo $PATH
+lein
+echo $PATH
+echo $PATH
+cd datashare/mgauthron/clojure/training/fourclojure/
+lein --version
+cd datashare/mgauthron/clojure/training/
+cd ..
+ls
+cd fileComparator
+cd datashare/mgauthron/clojure/training/
+cd fileComparator
+cd datashare/mgauthron/clojure/training/fourclojure/
+lein --version
+emacs--version
+emacs --version
+cd datashare/mgauthron/clojure/training/fourclojure/
+cd datashare/mgauthron/clojure/training/fourclojure/
+cd ..
+cd unbound-test/
+cd datashare/mgauthron/clojure/training/fourclojure/
+cd datashare/mgauthron/clojure/training/fourclojure/
+pwd
+cd datashare/mgauthron/clojure/training/dojo7_oct/clsudoku/
+cd datashare/mgauthron/clojure/training/dojo7_oct/clsudoku/
+cd ../../../clojure-core-logic-chess/
+cd datashare/mgauthron/clojure/clojure-core-logic-chess/
+cd datashare/mgauthron/clojure/clojure-core-logic-chess/
+cd ../training/the-reasoned-schemer-clojure/
+cd ../../clojure-core-logic-chess/
+cd ..
+cd training/ldnclj-titanic/
+cd ..
+cd the-reasoned-schemer-clojure/
+cd datashare/mgauthron/clojure/clojure-core-logic-chess/
